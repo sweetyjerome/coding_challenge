@@ -4,7 +4,7 @@ import { Startup } from "../../Types/Startup";
 import Cards from "../Card/Cards";
 
 function StartupList(): ReactElement {
-  const [startupList, setStartupList] = useState<any>([])
+  const [startupList, setStartupList] = useState<Startup[] | []>([])
 
   useEffect(() => {
 
@@ -13,8 +13,6 @@ function StartupList(): ReactElement {
       try {
         const response = await StartupHttpService.getAllStartups()
         setStartupList(response)
-        const singleResponse = await StartupHttpService.getStartupById(1)
-        console.log('single--', singleResponse)
       }
       catch (error) {
         console.log('error', error)
@@ -26,8 +24,12 @@ function StartupList(): ReactElement {
 
 
 
-  return <Fragment>
-    <Cards list={startupList} />
-  </Fragment>;
+  return (
+    <Fragment>
+      { startupList.length>0 && <Cards list={startupList} /> }
+    
+  </Fragment>
+  )
+
 }
 export default StartupList

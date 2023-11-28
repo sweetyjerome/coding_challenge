@@ -9,7 +9,7 @@ export class StartupHttpService {
   }
 
   public static async getAllStartups(){
-    const response = await axios.get<StartupDTO>(`/api/startups/`);
+    const response = await axios.get<Startup[]>(`/api/startups/`);
     console.log('response.data,', response.data)
     return response.data;
   }
