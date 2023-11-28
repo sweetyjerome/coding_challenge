@@ -13,6 +13,8 @@ function StartupList(): ReactElement {
       try {
         const response = await StartupHttpService.getAllStartups()
         setStartupList(response)
+        const singleResponse = await StartupHttpService.getStartupById(1)
+        console.log('single--', singleResponse)
       }
       catch (error) {
         console.log('error', error)
