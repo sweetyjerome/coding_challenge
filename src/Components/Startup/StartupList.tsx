@@ -1,19 +1,17 @@
 import { Fragment, ReactElement, useEffect, useState } from "react";
 import { StartupHttpService } from '../../Http/Startup/Startup.http.service'
 import { Startup } from "../../Types/Startup";
-import Card from '@mui/material/Card';
+import Cards from "../Card/Cards";
 
-
-export default function StartupList(): ReactElement {
-  const [startupList, setStartupList] = useState <Startup| null>(null)
+function StartupList(): ReactElement {
+  const [startupList, setStartupList] = useState<any>([])
 
   useEffect(() => {
 
     //fetch the data using StartupHttpService
-    const fetchAllStartups = async ()=>{
+    const fetchAllStartups = async () => {
       try {
         const response = await StartupHttpService.getAllStartups()
-        console.log(' recieved', response)
         setStartupList(response)
       }
       catch (error) {
@@ -25,9 +23,9 @@ export default function StartupList(): ReactElement {
   }, [])
 
 
+
   return <Fragment>
-    <div>
-      hi app
-    </div>
+    <Cards list={startupList} />
   </Fragment>;
 }
+export default StartupList

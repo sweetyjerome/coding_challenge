@@ -11,6 +11,6 @@ export class StartupHttpService {
   public static async getAllStartups(){
     const response = await axios.get<StartupDTO>(`/api/startups/`);
     console.log('response.data,', response.data)
-    return StartupMapper.map(response.data);
+    return response.data;
   }
 }
