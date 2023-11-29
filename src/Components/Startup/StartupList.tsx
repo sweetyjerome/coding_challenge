@@ -2,9 +2,11 @@ import { Fragment, ReactElement, useEffect, useState } from "react";
 import { StartupHttpService } from '../../Http/Startup/Startup.http.service'
 import { Startup } from "../../Types/Startup";
 import Cards from "../Card/Cards";
+import '../styles.scss';
 
 function StartupList(): ReactElement {
   const [startupList, setStartupList] = useState<Startup[] | []>([])
+  const [error, setError] = useState<String | null>(null);
 
   useEffect(() => {
 
@@ -16,6 +18,7 @@ function StartupList(): ReactElement {
       }
       catch (error) {
         console.log('error', error)
+        setError('Error while fetching data')
       }
     }
 
@@ -26,9 +29,10 @@ function StartupList(): ReactElement {
 
   return (
     <Fragment>
-      { startupList.length>0 && <Cards list={startupList} /> }
-    
-  </Fragment>
+      {error && <p className="error-box">{error}</p>}
+      {!error && startupList.length > 0 && <Cards list={startupList} />}
+
+    </Fragment>
   )
 
 }
